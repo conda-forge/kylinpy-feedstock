@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/kylinpy-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/kylinpy-{{ version }}.tar.gz
   sha256: 4106acac0fc83abcd8dea3c1d9ea3c9ade108ace068de6a2bd2e0d7571b26643
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.0
+    - python {{ python_min }}
   run:
-    - python >=3.0
+    - python >={{ python_min }}
     # listed as an extra but import fails without it
     - sqlalchemy >=1.1.0
 
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/Kyligence/kylinpy
